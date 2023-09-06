@@ -3,11 +3,22 @@ import UIKit
 
 class TableViewCell: UITableViewCell {
     
-    var cellImage = UIImageView()
+    var cellImage : UIImageView = {
+        let cellImage = UIImageView()
+        cellImage.layer.cornerRadius = 11
+        cellImage.contentMode = .scaleAspectFit
+        return cellImage
+    }()
     
     var nameLabel: UILabel = {
         let nameLabel = UILabel()
         nameLabel.font = .boldSystemFont(ofSize: 24)
+        return nameLabel
+    }()
+    
+    var countLabel: UILabel = {
+        let nameLabel = UILabel()
+        nameLabel.font = .boldSystemFont(ofSize: 15)
         return nameLabel
     }()
 
@@ -18,12 +29,13 @@ class TableViewCell: UITableViewCell {
         //contentView.heightAnchor.constraint(equalToConstant: 300).isActive = true
         contentView.addSubview(cellImage)
         cellImage.translatesAutoresizingMaskIntoConstraints = false
-        cellImage.backgroundColor = .cyan
+        //cellImage.backgroundColor = .cyan
 
         NSLayoutConstraint.activate([
-            cellImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 2),
-            cellImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2),
-            //cellImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -2),
+            cellImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            cellImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            cellImage.heightAnchor.constraint(equalToConstant: 200),
+            cellImage.widthAnchor.constraint(equalToConstant: 350)
             //cellImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -2)
         ])
         
@@ -31,8 +43,18 @@ class TableViewCell: UITableViewCell {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            nameLabel.topAnchor.constraint(equalTo: cellImage.topAnchor, constant: 0),
-            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 2)
+            nameLabel.topAnchor.constraint(equalTo: cellImage.bottomAnchor, constant: 8),
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            //nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
+        ])
+        
+        contentView.addSubview(countLabel)
+        countLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            countLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
+            countLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            countLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8)
         ])
     }
     
