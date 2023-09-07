@@ -16,7 +16,6 @@ class CellViewController: UIViewController {
     
     private let closeImage = UIImageView(image: UIImage(named: "close"))
     private let downloadImage = UIImageView(image: UIImage(named: "download"))
-    //private let likeImage = UIImageView(image: UIImage(named: "like"))
     
     private let likeButton: UIButton = {
         let bt = UIButton()
@@ -24,69 +23,50 @@ class CellViewController: UIViewController {
         return bt
     }()
     
-    private let nameLabel: UILabel = {
-        let nl = UILabel()
-        nl.font = .boldSystemFont(ofSize: 22)
-        return nl
-    }()
+    private let nameLabel = MakerView.shared.makeLabel(font: .boldSystemFont(ofSize: 22))
+    private let priceLabel = MakerView.shared.makeLabel(textColor: .systemBlue,
+                                                        font: .boldSystemFont(ofSize: 20))
     
-    private let priceLabel: UILabel = {
-        let nl = UILabel()
-        nl.font = .boldSystemFont(ofSize: 20)
-        nl.textColor = .systemBlue
-        return nl
-    }()
+    private let detailLabel = MakerView.shared.makeLabel(text: "Product Details",
+                                                        font: .boldSystemFont(ofSize: 20))
     
-    private let detailLabel: UILabel = {
-        let nl = UILabel()
-        nl.font = .systemFont(ofSize: 20)
-        nl.text = "Product Details"
-        return nl
-    }()
+    private let roomTypelLabel = MakerView.shared.makeLabel(text: "Room Type",
+                                                            textColor: .systemGray)
     
-    private let nameTextView: UITextView = {
-        let nt = UITextView()
-        nt.font = .systemFont(ofSize: 15)
-        //nt.attributedText = NSAttributedString(NSParagraphStyle)
-        nt.text = "Room Type  Color  Material  Dimentions  Weight"
-        nt.textColor = .systemGray2
-        return nt
-    }()
+    private let colorLabel = MakerView.shared.makeLabel(text: "Color",
+                                                         textColor: .systemGray)
     
-    private let detailsTextView: UITextView = {
-        let nt = UITextView()
-        nt.font = .systemFont(ofSize: 15)
-        //nt.attributedText = NSAttributedString(NSParagraphStyle)
-        return nt
-    }()
+    private let materialLabel = MakerView.shared.makeLabel(text: "Material",
+                                                         textColor: .systemGray)
     
-    private let buyButton: UIButton = {
-        let bt = UIButton()
-        bt.titleLabel?.font = .systemFont(ofSize: 17)
-        bt.setTitle("Buy", for: .normal)
-        bt.backgroundColor = .systemBlue
-        bt.layer.cornerRadius = 12
-        return bt
-    }()
+    private let dimentionslLabel = MakerView.shared.makeLabel(text: "Dimentions",
+                                                         textColor: .systemGray)
     
-    private let minusButton: UIButton = {
-        let bt = UIButton()
-        bt.setBackgroundImage(UIImage(named: "minus"), for: .normal)
-        return bt
-    }()
+    private let weightLabel = MakerView.shared.makeLabel(text: "Weight",
+                                                         textColor: .systemGray)
     
-    private let plusButton: UIButton = {
-        let bt = UIButton()
-        bt.setBackgroundImage(UIImage(named: "plus"), for: .normal)
-        return bt
-    }()
+    private let roomTypelLabel_ = MakerView.shared.makeLabel()
     
-    private let countLabel: UILabel = {
-        let nl = UILabel()
-        nl.font = .boldSystemFont(ofSize: 15)
-        nl.text = ""
-        return nl
-    }()
+    private let colorLabel_ = MakerView.shared.makeLabel()
+    
+    private let materialLabel_ = MakerView.shared.makeLabel()
+    
+    private let dimentionslLabel_ = MakerView.shared.makeLabel()
+    
+    private let weightLabel_ = MakerView.shared.makeLabel()
+    
+    
+    private let buyButton = MakerView.shared.makeButton(title: "Buy",
+                                                        backgroundColor: .systemBlue)
+    
+    
+    private let minusButton = MakerView.shared.makeButton(image: UIImage(named: "minus")!)
+    
+    private let plusButton = MakerView.shared.makeButton(image: UIImage(named: "plus")!)
+
+    
+    private let countLabel = MakerView.shared.makeLabel(font: .boldSystemFont(ofSize: 15))
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,7 +104,7 @@ class CellViewController: UIViewController {
             closeImage.topAnchor.constraint(equalTo: mainImage.topAnchor, constant: 10)
         ])
         
-        mainImage.addSubview(likeButton)
+        view.addSubview(likeButton)
         likeButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
@@ -153,7 +133,7 @@ class CellViewController: UIViewController {
         NSLayoutConstraint.activate([
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 16),
-            nameLabel.topAnchor.constraint(equalTo: mainImage.bottomAnchor, constant: 20)
+            nameLabel.topAnchor.constraint(equalTo: mainImage.bottomAnchor, constant: 10)
         ])
         
         priceLabel.text = item!.price
@@ -173,26 +153,92 @@ class CellViewController: UIViewController {
             detailLabel.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 20)
         ])
         
-        view.addSubview(nameTextView)
-        nameTextView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(roomTypelLabel)
+        roomTypelLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            nameTextView.heightAnchor.constraint(equalToConstant: 100),
-            nameTextView.widthAnchor.constraint(equalToConstant: 100),
-            nameTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            nameTextView.topAnchor.constraint(equalTo: detailLabel.bottomAnchor, constant: 10)
+            roomTypelLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            roomTypelLabel.topAnchor.constraint(equalTo: detailLabel.bottomAnchor, constant: 10)
         ])
         
-        detailsTextView.text = "\(item!.info.roomType)  \(item!.info.color)  \(item!.info.material)  \(item!.info.dimentions)  \(item!.info.weight)"
-        view.addSubview(detailsTextView)
-        detailsTextView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(colorLabel)
+        colorLabel.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            detailsTextView.heightAnchor.constraint(equalToConstant: 100),
-            detailsTextView.widthAnchor.constraint(equalToConstant: 100),
-            detailsTextView.leadingAnchor.constraint(equalTo: nameTextView.trailingAnchor, constant: 40),
-            detailsTextView.topAnchor.constraint(equalTo: nameTextView.topAnchor)
+            colorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            colorLabel.topAnchor.constraint(equalTo: roomTypelLabel.bottomAnchor, constant: 5)
         ])
+        
+        view.addSubview(materialLabel)
+        materialLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            materialLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            materialLabel.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: 5)
+        ])
+        
+        view.addSubview(dimentionslLabel)
+        dimentionslLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            dimentionslLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            dimentionslLabel.topAnchor.constraint(equalTo: materialLabel.bottomAnchor, constant: 5)
+        ])
+        
+        view.addSubview(weightLabel)
+        weightLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            weightLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            weightLabel.topAnchor.constraint(equalTo: dimentionslLabel.bottomAnchor, constant: 5)
+        ])
+        
+        
+        view.addSubview(roomTypelLabel_)
+        roomTypelLabel_.text = item!.info.roomType
+        roomTypelLabel_.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            roomTypelLabel_.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 126),
+            roomTypelLabel_.topAnchor.constraint(equalTo: roomTypelLabel.topAnchor)
+        ])
+        
+        view.addSubview(colorLabel_)
+        colorLabel_.text = item!.info.color
+        colorLabel_.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            colorLabel_.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 126),
+            colorLabel_.topAnchor.constraint(equalTo: colorLabel.topAnchor)
+        ])
+        
+        view.addSubview(materialLabel_)
+        materialLabel_.text = item!.info.material
+        materialLabel_.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            materialLabel_.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 126),
+            materialLabel_.topAnchor.constraint(equalTo: materialLabel.topAnchor)
+        ])
+        
+        view.addSubview(dimentionslLabel_)
+        dimentionslLabel_.text = item!.info.dimentions
+        dimentionslLabel_.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            dimentionslLabel_.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 126),
+            dimentionslLabel_.topAnchor.constraint(equalTo: dimentionslLabel.topAnchor)
+        ])
+        
+        view.addSubview(weightLabel_)
+        weightLabel_.text = item!.info.weight
+        weightLabel_.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            weightLabel_.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 126),
+            weightLabel_.topAnchor.constraint(equalTo: weightLabel.topAnchor)
+        ])
+        
     }
     
     private func initButton() {
@@ -215,7 +261,6 @@ class CellViewController: UIViewController {
         plusButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            //countLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             plusButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             plusButton.topAnchor.constraint(equalTo: priceLabel.topAnchor)
         ])
